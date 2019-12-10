@@ -1,7 +1,6 @@
 import React from 'react';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
@@ -11,11 +10,14 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MenuIcon from '@material-ui/icons/Menu';
 import AppBar from '@material-ui/core/AppBar';
 import clsx from 'clsx';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
+import HomeIcon from '@material-ui/icons/Home';
+import NotesIcon from '@material-ui/icons/Notes';
+
 
 const drawerWidth = 240;
 
@@ -56,13 +58,15 @@ const useStyles = makeStyles(theme => ({
     },
     menuButton: {
         marginRight: theme.spacing(2)
+    },
+    underAppbar: {
+        ...theme.mixins.toolbar
     }
 }));
 
 export default function TemporaryDrawer() {
     const classes = useStyles();
     const [state, setState] = React.useState(false);
-    const theme = useTheme();
 
     const toggleDrawer = open => event => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -72,6 +76,19 @@ export default function TemporaryDrawer() {
         setState(open);
     };
 
+    const menuButtons = [
+        {
+            name: "Home",
+            route: "/",
+            icon: () => ( <HomeIcon /> )
+        },
+        {
+            name: "Test",
+            route: "/test",
+            icon: () => ( <NotesIcon /> )
+        }
+    ] 
+
     const sideList = side => (
         <div
             className={classes.list}
@@ -79,24 +96,15 @@ export default function TemporaryDrawer() {
         >
             <div className={classes.drawerHeader}>
                 <IconButton onClick={toggleDrawer(false)}>
-                    {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+                    <ChevronLeftIcon />
                 </IconButton>
             </div>
             <Divider />
             <List>
-                {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
-                    </ListItem>
-                ))}
-            </List>
-            <Divider />
-            <List>
-                {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                        <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                        <ListItemText primary={text} />
+                {menuButtons.map(item => (
+                    <ListItem component={Link} to={item.route} button key={item.name}>
+                        <ListItemIcon>{item.icon()}</ListItemIcon>
+                        <ListItemText primary={item.name} />
                     </ListItem>
                 ))}
             </List>
@@ -110,6 +118,7 @@ export default function TemporaryDrawer() {
                 className={clsx(classes.appBar, {
                     [classes.appBarShift]: state,
                 })}
+                color="default"
             >
                 <Toolbar>
                     <IconButton
@@ -119,13 +128,13 @@ export default function TemporaryDrawer() {
                         edge="start"
                         className={clsx(classes.menuButton, state && classes.hide)}
                     >
-                        <ChevronRightIcon />
-                    </IconButton>
-                    <Typography variant="h6" noWrap>
-                        Persistent drawer
-                    </Typography>
+                        <MenuIcon />
+                    </IconButton>                    
                 </Toolbar>
             </AppBar>
+            <div className={ classes.underAppbar }>
+
+            </div>
             <Drawer open={state}>
                 {sideList()}
             </Drawer>

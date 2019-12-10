@@ -5,20 +5,31 @@ import {
   HashRouter
 } from "react-router-dom";
 import TemporaryDrawer from "./Drawer";
+import Test from "./Test";
+import Home from "./Home";
+import CollapsedDrawer from "./NewDrawer";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
  
 class Main extends Component {
   render() {
+
+    const theme = createMuiTheme({
+      palette: {
+        type: 'dark'
+      }
+    });
+
     return (
       <HashRouter>
-        <div>
-          <h1>Drawer</h1>
-          <ul className="header">
-            
-          </ul>          
-          <div className="content">
-            <TemporaryDrawer />
+        <ThemeProvider theme={theme}>
+          <div>
+            <div className="content">
+              <CollapsedDrawer />
+              <Route exact path='/' component={Home} />
+              <Route exact path='/test' component={Test} />
+            </div>
           </div>
-        </div>
+        </ThemeProvider>
       </HashRouter>
     );
   }
