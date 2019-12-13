@@ -1,38 +1,31 @@
-import React, { Component } from "react";
+import React from "react";
+import CollapsedDrawer from "./CollapsedDrawer";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import {
-  Route,
-  NavLink,
   HashRouter
 } from "react-router-dom";
-import TemporaryDrawer from "./Drawer";
-import Test from "./Test";
-import Home from "./Home";
-import CollapsedDrawer from "./NewDrawer";
-import { ThemeProvider, createMuiTheme } from "@material-ui/core";
- 
-class Main extends Component {
-  render() {
+
+export default function Main() {
 
     const theme = createMuiTheme({
       palette: {
-        type: 'dark'
-      }
+        type: 'dark',
+        action: {
+          hover: "#fcba03"
+        },
+        background: {
+          paper: "#303030",
+          default: "#232323"
+        }
+      },
     });
 
     return (
       <HashRouter>
         <ThemeProvider theme={theme}>
-          <div>
-            <div className="content">
-              <CollapsedDrawer />
-              <Route exact path='/' component={Home} />
-              <Route exact path='/test' component={Test} />
-            </div>
-          </div>
+          <CollapsedDrawer />          
         </ThemeProvider>
-      </HashRouter>
+      </HashRouter>   
     );
-  }
+
 }
- 
-export default Main;

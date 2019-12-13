@@ -1,13 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Test extends Component {
-    render() {
-      return (
-          <div>
-            TEEEEEST
-          </div>
-      );
-    }
-  }
-
-  export default Test;
+export default function Test() {
+  return (
+      <div>
+        TEEEEEST
+      </div>
+  );
+}

@@ -1,14 +1,19 @@
-import React, { Component } from "react";
+import React from "react";
+import { makeStyles } from "@material-ui/styles";
 
-class Test extends Component {
-    render() {
-      return (
-          <div>
-            HOMEEEE
-          </div>
-      );
-    }
-  }
+export default function Home() {
 
+  const classes = makeStyles(theme => ({
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+    },
+  }))
 
-  export default Test;
+  return (
+    <div className={classes.content}>
+      HOMEEEE
+    </div>
+  );
+
+}
