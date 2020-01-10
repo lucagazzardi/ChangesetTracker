@@ -13,7 +13,7 @@ import SettingsIcon from '@material-ui/icons/Settings';
 import {
     Route
   } from "react-router-dom";  
-import Test from "./Test";
+import Settings from "./Settings";
 import Home from "./Home";
 
 const drawerWidth = 240;
@@ -42,7 +42,8 @@ const useStyles = makeStyles(theme => ({
         '&:hover': {
             backgroundColor: 'transparent',
             '& $listIcon': {
-                color: theme.palette.action.hover
+                color: theme.palette.action.hover,
+                minWidth: 'fit-content'
             }
         },
         '&$buttonSelected, &$buttonSelected:focus, &$buttonSelected:hover': {
@@ -101,7 +102,7 @@ export default function CollapsedDrawer() {
             backgroundColor: theme.palette.common.white,
             color: 'rgba(0, 0, 0, 0.87)',
             boxShadow: theme.shadows[1],
-            fontSize: 11,
+            fontSize: 10,
         },
     }))(Tooltip);
 
@@ -139,7 +140,7 @@ export default function CollapsedDrawer() {
             </Drawer>
             <div className={classes.content}>                
                     <Route exact path='/' component={Home} />
-                    <Route path='/settings' component={Test} />                
+                    <Route path='/settings' component={Settings} />                
             </div>
         </div>
     );
